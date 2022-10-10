@@ -70,9 +70,9 @@ class TestDiaryPage extends Component {
                             {this.state.sessionResults.map((element,index)=>{
                                 return(
                                     <tr className="dataRow">
-                                        <td className="dataElement">{element.videos[0].audioResult}</td>
-                                        <td className="dataElement">{element.videos[0].videoResult}</td>
-                                        <td className="dataElement">{element.videos[0].depressionLevel}</td>
+                                        <td className="dataElement">{element.videos[0]?.audioResult}</td>
+                                        <td className="dataElement">{element.videos[0]?.videoResult}</td>
+                                        <td className="dataElement">{element.videos[0]?.depressionLevel}</td>
                                     </tr>
                                 )
                             })}

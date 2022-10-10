@@ -75,6 +75,8 @@ class SocialMediaPage extends Component {
         })
 
     }
+    // 735493277533052
+
     render() {
         if(this.state.reDirectToHome){
             return <Navigate to="/home"/>
@@ -85,7 +87,7 @@ class SocialMediaPage extends Component {
                         <p className="postsTitleText">FACEBOOK DEPRESSION ANALYSIS</p>
                         <br/>
                         <FacebookLogin
-                            appId="735493277533052"
+                            appId="1204488110327168"
                             autoLoad={true}
                             fields="name,email,picture"
                             onClick={this.componentClicked}

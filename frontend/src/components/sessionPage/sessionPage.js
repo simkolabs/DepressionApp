@@ -5,6 +5,7 @@ import './sessionPage.css'
 import { FaBeer , FaHome} from 'react-icons/fa';
 import {Navigate} from "react-router-dom";
 import { Oval } from  'react-loader-spinner'
+import fixWebmDuration from 'webm-duration-fix';
 
 const axios = require('axios').default;
 class SessionPage extends Component {
@@ -36,6 +37,9 @@ class SessionPage extends Component {
             videoResult:{}
         }
     }
+
+
+
     answerSubmit = async (e) => {
         e.preventDefault()
         if(this.state.videos.length===0){
@@ -73,6 +77,9 @@ class SessionPage extends Component {
     }
 
     render() {
+        const mimeType = 'video/webm\;codecs=vp9';
+        const blobSlice = [];
+
         console.log(this.state.questions)
         let count =0;
         if(this.state.reDirectToHome){
@@ -208,6 +215,9 @@ class SessionPage extends Component {
                                 </div>
                             </div>
                         )}
+                        ondataavailable ={(event) => {
+                            blobSlice.push(event.data);
+                        }}
                         onStart={
                             ()=>{
                                 this.setState({
@@ -217,13 +227,13 @@ class SessionPage extends Component {
                         }
                         onStop={
                             async (blobUrl, blob) => {
+
+
                                 console.log("Blob URL",blobUrl);
                                 const videoBlob =  await fetch(blobUrl).then(r => r.blob());
-                                const videoFile = new File([videoBlob],
-                                    "AnswerFor_"+this.state.session+
-                                    "_"+(this.state.videos.length+1)+
-                                    "_"+this.state.user
-                                    +".mp4", { type: "video/mp4" })
+                                const fixBlob = await fixWebmDuration(blob);
+                                const videoFile = new File([fixBlob],
+                                    "data", { type: "video/webm" })
                                 let videosCopy = []
                                 let blobUrlsCopy = []
                                 let i =0;
